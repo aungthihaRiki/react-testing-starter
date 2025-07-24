@@ -1,12 +1,20 @@
 import { render, screen } from '@testing-library/react'
-import { it, expect, describe } from 'vitest'
 import Greet from '../../components/Greet'
-import '@testing-library/jest-dom/vitest'
 
 describe('Greet Test', () => {
     it('should render Hello with the name when name is provided', () => {
         render(<Greet name="John" />)
-        const heading = screen.getByRole('heading');
+
+        const heading = screen.getByRole('heading');    // h1,h2,h3
         expect(heading).toBeInTheDocument();
+        expect(heading).toHaveTextContent(/John/i); // case insensitive match Hello, john, JOHN, JoHn is fine
+    })
+
+        it('should render Button when name is not provided', () => {
+        render(<Greet />)
+
+        const button = screen.getByRole('button');
+        expect(button).toBeInTheDocument();
+        expect(button).toHaveTextContent(/Login/i);
     })
 })
